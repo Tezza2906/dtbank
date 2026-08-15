@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard - DT Bank{% endblock %}
+
+{% block content %}
+<div class="dashboard-container">
+  <!-- Dashboard Header -->
+  <div class="dashboard-header">
+    <h1>Welcome Back, {{ username }}!</h1>
+    <p>Manage your account and finances with ease</p>
+  </div>
+
+  <!-- Statistics Grid -->
+  <div class="dashboard-grid">
+    <!-- Balance Card -->
+    <div class="stat-card">
+      <div class="stat-label">💰 Current Balance</div>
+      <div class="stat-value">₹{{ "%.2f"|format(balance) }}</div>
+      <div class="stat-change">Your available funds</div>
+    </div>
+
+    <!-- Account Number Card -->
+    <div class="stat-card">
+      <div class="stat-label">🏦 Account Number</div>
+      <div class="stat-value" style="font-size: var(--font-size-xl);">{{ account_number }}</div>
+      <div class="stat-change">Primary account</div>
+    </div>
+
+    <!-- Account Status Card -->
+    <div class="stat-card">
+      <div class="stat-label">✅ Account Status</div>
+      <div class="stat-value" style="font-size: var(--font-size-xl); color: var(--color-success);">Active</div>
+      <div class="stat-change">All systems operational</div>
+    </div>
+  </div>
+
+  <!-- Quick Actions Section -->
+  <div class="dashboard-section">
+    <div class="section-title">Quick Actions</div>
+    <div class="quick-actions">
+      <a href="{{ url_for('customer.transfer') }}" class="action-btn">
+        <div class="action-icon">💸</div>
+        <div>Transfer Money</div>
+      </a>
+      <a href="{{ url_for('customer.transactions') }}" class="action-btn">
+        <div class="action-icon">📋</div>
+        <div>View Transactions</div>
+      </a>
+      <a href="{{ url_for('customer.profile') }}" class="action-btn">
+        <div class="action-icon">👤</div>
+        <div>My Profile</div>
+      </a>
+      <a href="{{ url_for('customer.account') }}" class="action-btn">
+        <div class="action-icon">📊</div>
+        <div>Account Details</div>
+      </a>
+    </div>
+  </div>
+
+  <!-- Additional Features Section -->
+  <div class="dashboard-section">
+    <div class="section-title">Account Overview</div>
+    <div class="row" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: var(--spacing-xl);">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">🔐 Security</h5>
+          <p class="card-text">Your account is protected with industry-leading security measures. Enable two-factor authentication for additional protection.</p>
+          <a href="#" class="btn btn-sm btn-outline-primary">Learn More</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">📱 Mobile Banking</h5>
+          <p class="card-text">Download our mobile app to manage your finances on the go. Available on iOS and Android.</p>
+          <a href="#" class="btn btn-sm btn-outline-primary">Download App</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">💡 Need Help?</h5>
+          <p class="card-text">Contact our customer support team available 24/7 to assist you with any questions.</p>
+          <a href="#" class="btn btn-sm btn-outline-primary">Contact Support</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
