@@ -1,0 +1,194 @@
+{% extends "base.html" %}
+
+{% block title %}DT Bank - Premium Digital Banking Platform{% endblock %}
+
+{% block content %}
+<!-- Hero Section with Premium Visuals -->
+<section class="hero">
+  <div class="hero-content">
+    <h1>🏦 Experience Premium Banking</h1>
+    <p>Secure, Fast, and Intuitive Digital Banking for the Modern World</p>
+    
+    <div class="hero-buttons">
+      <a href="{{ url_for('customer.login') }}" class="btn btn-primary">
+        💳 Customer Login
+      </a>
+      <a href="{{ url_for('customer.register') }}" class="btn btn-outline-primary">
+        ✨ Open Account
+      </a>
+      <a href="{{ url_for('admin.login') }}" class="btn btn-outline-secondary">
+        🔐 Admin Portal
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- Features Section with Rich Content -->
+<section class="features-section">
+  <h2 style="text-align: center; color: var(--color-hdfc-blue); margin-bottom: var(--spacing-3xl); font-size: var(--font-size-4xl);">Why Choose DT Bank?</h2>
+  
+  <div class="features-grid">
+    <div class="feature-card">
+      <div style="font-size: 3rem; margin-bottom: var(--spacing-lg);">🔒</div>
+      <h3>Bank-Grade Security</h3>
+      <p>Military-grade encryption, multi-factor authentication, and 24/7 fraud monitoring to protect your assets.</p>
+    </div>
+    
+    <div class="feature-card">
+      <div style="font-size: 3rem; margin-bottom: var(--spacing-lg);">⚡</div>
+      <h3>Lightning-Fast Transfers</h3>
+      <p>Instant money transfers to any account with real-time notifications and transaction tracking.</p>
+    </div>
+    
+    <div class="feature-card">
+      <div style="font-size: 3rem; margin-bottom: var(--spacing-lg);">📊</div>
+      <h3>Real-Time Analytics</h3>
+      <p>View your balance, spending patterns, and account details in beautiful, interactive dashboards.</p>
+    </div>
+    
+    <div class="feature-card">
+      <div style="font-size: 3rem; margin-bottom: var(--spacing-lg);">📱</div>
+      <h3>Fully Responsive</h3>
+      <p>Access your account seamlessly on desktop, tablet, or mobile with our optimized interface.</p>
+    </div>
+    
+    <div class="feature-card">
+      <div style="font-size: 3rem; margin-bottom: var(--spacing-lg);">🚀</div>
+      <h3>99.9% Uptime</h3>
+      <p>Enterprise-grade infrastructure with redundant systems ensuring your banking is always available.</p>
+    </div>
+    
+    <div class="feature-card">
+      <div style="font-size: 3rem; margin-bottom: var(--spacing-lg);">🎯</div>
+      <h3>Expert Support</h3>
+      <p>Award-winning customer service available 24/7 to assist with any banking needs or questions.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Security & Trust Section -->
+<section style="background: linear-gradient(135deg, #c8e6c9 0%, #a5d6a7 100%); padding: var(--spacing-3xl) var(--spacing-xl); position: relative; overflow: hidden;">
+  <div style="max-width: 1000px; margin: 0 auto; text-align: center; position: relative; z-index: 2;">
+    <h2 style="color: var(--color-hdfc-blue); margin-bottom: var(--spacing-lg); font-size: var(--font-size-4xl);">🛡️ Security & Compliance</h2>
+    <p style="font-size: var(--font-size-lg); color: var(--color-text-secondary); margin-bottom: var(--spacing-3xl);">
+      Your financial security is our highest priority. We comply with all international banking standards and regulations.
+    </p>
+    
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--spacing-xl);">
+      <div style="background: var(--glass-bg); backdrop-filter: var(--glass-blur); border: 1px solid var(--glass-border); padding: var(--spacing-2xl); border-radius: var(--radius-lg); box-shadow: var(--shadow-lg); animation: fadeInUp 0.8s ease-out;">
+        <p style="font-size: 2.5rem; margin-bottom: var(--spacing-md);">🔐</p>
+        <p style="color: var(--color-text-primary); font-weight: 700; margin-bottom: var(--spacing-sm);">SSL Encryption</p>
+        <p style="color: var(--color-text-light); font-size: var(--font-size-sm); margin-bottom: 0;">256-bit SSL encryption for all data</p>
+      </div>
+      
+      <div style="background: var(--glass-bg); backdrop-filter: var(--glass-blur); border: 1px solid var(--glass-border); padding: var(--spacing-2xl); border-radius: var(--radius-lg); box-shadow: var(--shadow-lg); animation: fadeInUp 0.8s ease-out 0.1s both;">
+        <p style="font-size: 2.5rem; margin-bottom: var(--spacing-md);">✓</p>
+        <p style="color: var(--color-text-primary); font-weight: 700; margin-bottom: var(--spacing-sm);">PCI Compliant</p>
+        <p style="color: var(--color-text-light); font-size: var(--font-size-sm); margin-bottom: 0;">Payment Card Industry certified</p>
+      </div>
+      
+      <div style="background: var(--glass-bg); backdrop-filter: var(--glass-blur); border: 1px solid var(--glass-border); padding: var(--spacing-2xl); border-radius: var(--radius-lg); box-shadow: var(--shadow-lg); animation: fadeInUp 0.8s ease-out 0.2s both;">
+        <p style="font-size: 2.5rem; margin-bottom: var(--spacing-md);">🌍</p>
+        <p style="color: var(--color-text-primary); font-weight: 700; margin-bottom: var(--spacing-sm);">GDPR Compliant</p>
+        <p style="color: var(--color-text-light); font-size: var(--font-size-sm); margin-bottom: 0;">Your privacy is fully protected</p>
+      </div>
+
+      <div style="background: var(--glass-bg); backdrop-filter: var(--glass-blur); border: 1px solid var(--glass-border); padding: var(--spacing-2xl); border-radius: var(--radius-lg); box-shadow: var(--shadow-lg); animation: fadeInUp 0.8s ease-out 0.3s both;">
+        <p style="font-size: 2.5rem; margin-bottom: var(--spacing-md);">🔄</p>
+        <p style="color: var(--color-text-primary); font-weight: 700; margin-bottom: var(--spacing-sm);">2FA Enabled</p>
+        <p style="color: var(--color-text-light); font-size: var(--font-size-sm); margin-bottom: 0;">Two-factor authentication available</p>
+      </div>
+
+      <div style="background: var(--glass-bg); backdrop-filter: var(--glass-blur); border: 1px solid var(--glass-border); padding: var(--spacing-2xl); border-radius: var(--radius-lg); box-shadow: var(--shadow-lg); animation: fadeInUp 0.8s ease-out 0.4s both;">
+        <p style="font-size: 2.5rem; margin-bottom: var(--spacing-md);">📋</p>
+        <p style="color: var(--color-text-primary); font-weight: 700; margin-bottom: var(--spacing-sm);">ISO 27001</p>
+        <p style="color: var(--color-text-light); font-size: var(--font-size-sm); margin-bottom: 0;">Information security certified</p>
+      </div>
+
+      <div style="background: var(--glass-bg); backdrop-filter: var(--glass-blur); border: 1px solid var(--glass-border); padding: var(--spacing-2xl); border-radius: var(--radius-lg); box-shadow: var(--shadow-lg); animation: fadeInUp 0.8s ease-out 0.5s both;">
+        <p style="font-size: 2.5rem; margin-bottom: var(--spacing-md);">🛡️</p>
+        <p style="color: var(--color-text-primary); font-weight: 700; margin-bottom: var(--spacing-sm);">24/7 Monitoring</p>
+        <p style="color: var(--color-text-light); font-size: var(--font-size-sm); margin-bottom: 0;">Continuous fraud detection</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Statistics Section -->
+<section style="background: linear-gradient(135deg, var(--color-hdfc-blue) 0%, var(--color-hdfc-blue-light) 100%); color: white; padding: var(--spacing-3xl) var(--spacing-xl); position: relative; overflow: hidden;">
+  <div style="position: absolute; top: -50%; right: -50%; width: 600px; height: 600px; background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%); border-radius: 50%; pointer-events: none;"></div>
+  <div style="position: absolute; bottom: -50%; left: -50%; width: 500px; height: 500px; background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%); border-radius: 50%; pointer-events: none;"></div>
+
+  <div style="max-width: 1000px; margin: 0 auto; text-align: center; position: relative; z-index: 2;">
+    <h2 style="color: white; margin-bottom: var(--spacing-3xl); font-size: var(--font-size-4xl);">Trusted by Thousands</h2>
+    
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--spacing-2xl);">
+      <div style="animation: fadeInUp 0.8s ease-out;">
+        <p style="font-size: 3rem; font-weight: 800; margin-bottom: var(--spacing-sm);">50K+</p>
+        <p style="font-size: var(--font-size-lg); opacity: 0.95;">Active Customers</p>
+      </div>
+      
+      <div style="animation: fadeInUp 0.8s ease-out 0.1s both;">
+        <p style="font-size: 3rem; font-weight: 800; margin-bottom: var(--spacing-sm);">$2.5B+</p>
+        <p style="font-size: var(--font-size-lg); opacity: 0.95;">Transactions Processed</p>
+      </div>
+      
+      <div style="animation: fadeInUp 0.8s ease-out 0.2s both;">
+        <p style="font-size: 3rem; font-weight: 800; margin-bottom: var(--spacing-sm);">99.9%</p>
+        <p style="font-size: var(--font-size-lg); opacity: 0.95;">Uptime Guarantee</p>
+      </div>
+
+      <div style="animation: fadeInUp 0.8s ease-out 0.3s both;">
+        <p style="font-size: 3rem; font-weight: 800; margin-bottom: var(--spacing-sm);">0</p>
+        <p style="font-size: var(--font-size-lg); opacity: 0.95;">Security Breaches</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA Section -->
+<section style="background: linear-gradient(135deg, #c8e6c9 0%, #a5d6a7 100%); padding: var(--spacing-3xl) var(--spacing-xl); text-align: center;">
+  <div style="max-width: 700px; margin: 0 auto;">
+    <h2 style="color: var(--color-hdfc-blue); margin-bottom: var(--spacing-lg); font-size: var(--font-size-4xl);">Ready to Join DT Bank?</h2>
+    <p style="color: var(--color-text-secondary); font-size: var(--font-size-lg); margin-bottom: var(--spacing-2xl);">
+      Get started in minutes with our simple account opening process. No hidden fees, no surprises.
+    </p>
+    <a href="{{ url_for('customer.register') }}" class="btn btn-primary" style="font-size: var(--font-size-lg); padding: var(--spacing-lg) var(--spacing-3xl);">
+      ✨ Open Your Account Today
+    </a>
+  </div>
+</section>
+
+<!-- Contact Section -->
+<section style="background: #a5d6a7; padding: var(--spacing-3xl) var(--spacing-xl); border-top: 1px solid #81c784;">
+  <div style="max-width: 1000px; margin: 0 auto;">
+    <h2 style="text-align: center; color: var(--color-hdfc-blue); margin-bottom: var(--spacing-3xl); font-size: var(--font-size-4xl);">📞 Get in Touch</h2>
+    
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: var(--spacing-2xl);">
+      <div style="text-align: center; animation: fadeInUp 0.8s ease-out;">
+        <p style="font-size: 2rem; margin-bottom: var(--spacing-md);">📱</p>
+        <p style="font-size: var(--font-size-lg); font-weight: 700; color: var(--color-hdfc-blue); margin-bottom: var(--spacing-sm);">Phone</p>
+        <p style="color: var(--color-text-secondary); margin-bottom: 0;">+91 1234567890</p>
+      </div>
+      
+      <div style="text-align: center; animation: fadeInUp 0.8s ease-out 0.1s both;">
+        <p style="font-size: 2rem; margin-bottom: var(--spacing-md);">📧</p>
+        <p style="font-size: var(--font-size-lg); font-weight: 700; color: var(--color-hdfc-blue); margin-bottom: var(--spacing-sm);">Email</p>
+        <p style="color: var(--color-text-secondary); margin-bottom: 0;">info@dtbank.com</p>
+      </div>
+      
+      <div style="text-align: center; animation: fadeInUp 0.8s ease-out 0.2s both;">
+        <p style="font-size: 2rem; margin-bottom: var(--spacing-md);">📍</p>
+        <p style="font-size: var(--font-size-lg); font-weight: 700; color: var(--color-hdfc-blue); margin-bottom: var(--spacing-sm);">Address</p>
+        <p style="color: var(--color-text-secondary); margin-bottom: 0;">#172, 7th Street, Bangalore, India</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer style="background: linear-gradient(135deg, var(--color-navy) 0%, var(--color-navy-light) 100%); color: white; padding: var(--spacing-2xl) var(--spacing-xl); text-align: center; border-top: 1px solid rgba(255, 255, 255, 0.1);">
+  <p style="margin-bottom: var(--spacing-sm);">&copy; 2026 DT Bank. All rights reserved.</p>
+  <p style="font-size: var(--font-size-sm); color: rgba(255, 255, 255, 0.7); margin-bottom: 0;">Disha Jain | Tezza Ann Philip | For educational purposes</p>
+</footer>
+{% endblock %}
