@@ -1,0 +1,116 @@
+{% extends "base.html" %}
+
+{% block title %}Manage Customers - DT Bank Admin{% endblock %}
+
+{% block content %}
+<div class="admin-dashboard">
+  <!-- Page Header -->
+  <div class="dashboard-header">
+    <h1>👥 Customer Management</h1>
+    <p>View and manage all customer accounts</p>
+  </div>
+
+  <!-- Customers Table -->
+  <div class="admin-section">
+    <h3>All Customers</h3>
+    
+    {% if customers %}
+      <div class="admin-users-table" style="margin-top: var(--spacing-xl);">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Account Holder</th>
+              <th>Username</th>
+              <th>Email</th>
+              <th>Phone</th>
+              <th>Account Number</th>
+              <th style="text-align: right;">Balance (₹)</th>
+              <th>Created</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for customer in customers %}
+            <tr>
+              <td>
+                <span style="color: var(--color-black); font-family: 'Courier New', monospace; font-size: var(--font-size-sm);">
+                  #{{ customer.customer_id }}
+                </span>
+              </td>
+              <td>
+                <span style="color: var(--color-black); font-weight: 600;">
+                  {{ customer.acc_holder or 'N/A' }}
+                </span>
+              </td>
+              <td>
+                <span style="color: var(--color-black);">
+                  @{{ customer.username }}
+                </span>
+              </td>
+              <td>
+                <span style="color: var(--color-text-black); font-size: var(--font-size-sm);">
+                  {{ customer.email }}
+                </span>
+              </td>
+              <td>
+                <span style="color: var(--color-text-black);">
+                  {{ customer.phone }}
+                </span>
+              </td>
+              <td>
+                <span style="color: var(--color-black); font-family: 'Courier New', monospace; font-size: var(--font-size-sm);">
+                  {{ customer.account_number }}
+                </span>
+              </td>
+              <td style="text-align: right;">
+                <span style="color: var(--color-success); font-weight: 700;">
+                  ₹{{ "%.2f"|format(customer.balance) }}
+                </span>
+              </td>
+              <td>
+                <span style="color: var(--color-text-black); font-size: var(--font-size-sm);">
+                  {{ customer.created_at.strftime('%d %b %Y') if customer.created_at else 'N/A' }}
+                </span>
+              </td>
+              <td>
+                <a href="{{ url_for('admin.add_money', customer_id=customer.customer_id) }}" class="btn btn-sm btn-primary">
+                  Add Money
+                </a>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Summary Stats -->
+      <div style="margin-top: var(--spacing-xl); padding-top: var(--spacing-xl); border-top: 1px solid rgba(212, 175, 55, 0.2); display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--spacing-lg);">
+        <div>
+          <p style="color: var(--color-text-light); font-size: var(--font-size-sm); text-transform: uppercase; letter-spacing: 1px; margin-bottom: var(--spacing-md);">Total Customers</p>
+          <p style="color: var(--color-gold); font-size: var(--font-size-2xl); font-weight: 700; margin-bottom: 0;">{{ customers|length }}</p>
+        </div>
+        <div>
+          <p style="color: var(--color-text-light); font-size: var(--font-size-sm); text-transform: uppercase; letter-spacing: 1px; margin-bottom: var(--spacing-md);">Total Balance</p>
+          <p style="color: var(--color-success); font-size: var(--font-size-2xl); font-weight: 700; margin-bottom: 0;">₹{{ "%.2f"|format(customers|map(attribute='balance')|sum) }}</p>
+        </div>
+      </div>
+    {% else %}
+      <div style="text-align: center; padding: var(--spacing-3xl);">
+        <p style="color: var(--color-text-light); font-size: var(--font-size-lg); margin-bottom: 0;">
+          📭 No customers found
+        </p>
+      </div>
+    {% endif %}
+  </div>
+
+  <!-- Action Buttons -->
+  <div style="display: flex; gap: var(--spacing-lg); margin-top: var(--spacing-xl); justify-content: center;">
+    <a href="{{ url_for('admin.dashboard') }}" class="btn btn-outline-secondary">
+      Back to Dashboard
+    </a>
+    <a href="{{ url_for('admin.transactions') }}" class="btn btn-primary">
+      View Transactions
+    </a>
+  </div>
+</div>
+{% endblock %}
