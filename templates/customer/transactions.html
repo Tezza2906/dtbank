@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+
+{% block title %}Transaction History - DT Bank{% endblock %}
+
+{% block content %}
+<div class="transaction-container">
+  <!-- Header -->
+  <div class="transaction-header">
+    <div>
+      <h2 style="margin-bottom: var(--spacing-sm);">📋 Transaction History</h2>
+      <p style="color: var(--color-text-light);">All your recent account activity</p>
+    </div>
+  </div>
+
+  <!-- Transactions Table -->
+  <div class="transaction-table">
+    <div style="overflow-x: auto;">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Date & Time</th>
+            <th>Type</th>
+            <th style="text-align: right;">Amount (₹)</th>
+            <th>Recipient Account</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% if transactions %}
+            {% for tx in transactions %}
+            {% set t = tx.transaction_type|lower %}
+            <tr>
+              <td>
+                <span style="color: var(--color-silver);">
+                  {{ tx.transaction_date.strftime('%d %b %Y') if tx.transaction_date else 'N/A' }}
+                </span>
+                <br>
+                <small style="color: var(--color-text-light);">
+                  {{ tx.transaction_date.strftime('%H:%M:%S') if tx.transaction_date else '' }}
+                </small>
+              </td>
+              <td>
+                {% if t in ['deposit', 'credit'] %}
+                  <span class="badge badge-success">💰 {{ tx.transaction_type|upper }}</span>
+                {% elif t in ['withdraw', 'withdrawal', 'debit'] %}
+                  <span class="badge badge-danger">💸 {{ tx.transaction_type|upper }}</span>
+                {% elif t == 'transfer' %}
+                  <span class="badge badge-info">🔄 {{ tx.transaction_type|upper }}</span>
+                {% else %}
+                  <span class="badge badge-primary">📊 {{ tx.transaction_type|upper }}</span>
+                {% endif %}
+              </td>
+              <td style="text-align: right;">
+                {% if t in ['withdraw', 'withdrawal', 'debit'] %}
+                  <span style="color: var(--color-danger); font-weight: 700;">
+                    -₹{{ "%.2f"|format(tx.amount) }}
+                  </span>
+                {% else %}
+                  <span style="color: var(--color-success); font-weight: 700;">
+                    +₹{{ "%.2f"|format(tx.amount) }}
+                  </span>
+                {% endif %}
+              </td>
+              <td>
+                <span style="color: var(--color-silver); font-family: 'Courier New', monospace; font-size: var(--font-size-sm);">
+                  {{ tx.recipient_account or '—' }}
+                </span>
+              </td>
+            </tr>
+            {% endfor %}
+          {% else %}
+            <tr>
+              <td colspan="4" style="text-align: center; padding: var(--spacing-2xl);">
+                <div class="transaction-empty">
+                  <p style="font-size: var(--font-size-lg); color: var(--color-text-light); margin-bottom: var(--spacing-md);">
+                    📭 No Transactions Yet
+                  </p>
+                  <p style="color: var(--color-text-light); margin-bottom: 0;">
+                    Your transaction history will appear here once you make your first transfer.
+                  </p>
+                </div>
+              </td>
+            </tr>
+          {% endif %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Action Buttons -->
+  <div style="display: flex; gap: var(--spacing-lg); margin-top: var(--spacing-xl); justify-content: center;">
+    <a href="{{ url_for('customer.dashboard') }}" class="btn btn-outline-secondary">
+      Back to Dashboard
+    </a>
+    <a href="{{ url_for('customer.transfer') }}" class="btn btn-primary">
+      Make a Transfer
+    </a>
+  </div>
+</div>
+{% endblock %}

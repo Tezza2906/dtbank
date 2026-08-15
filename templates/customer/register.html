@@ -1,0 +1,142 @@
+{% extends "base.html" %}
+
+{% block title %}Create Account - DT Bank{% endblock %}
+
+{% block content %}
+<div class="auth-container">
+  <div class="auth-card" style="max-width: 550px;">
+    <h2>Create Your Account</h2>
+    
+    <form method="post" class="auth-form">
+      <!-- Personal Information Section -->
+      <div class="form-group">
+        <label class="form-label" for="account_holder_name">Full Name</label>
+        <input 
+          class="form-control" 
+          type="text" 
+          id="account_holder_name"
+          name="account_holder_name" 
+          placeholder="Enter your full name"
+          required
+        >
+      </div>
+
+      <!-- Login Credentials Section -->
+      <div class="form-group">
+        <label class="form-label" for="username">Username</label>
+        <input 
+          class="form-control" 
+          type="text" 
+          id="username"
+          name="username" 
+          placeholder="Choose a unique username"
+          required
+          autocomplete="username"
+        >
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="password">Password</label>
+        <input 
+          class="form-control" 
+          type="password" 
+          id="password"
+          name="password" 
+          placeholder="Create a strong password"
+          required
+          autocomplete="new-password"
+        >
+      </div>
+
+      <!-- Contact Information Section -->
+      <div class="form-group">
+        <label class="form-label" for="email">Email Address</label>
+        <input 
+          class="form-control" 
+          type="email" 
+          id="email"
+          name="email" 
+          placeholder="your.email@example.com"
+          required
+          autocomplete="email"
+        >
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="phone">Phone Number</label>
+        <input 
+          class="form-control" 
+          type="text" 
+          id="phone"
+          name="phone" 
+          placeholder="XXXXX XXXXX"
+          required
+          autocomplete="tel"
+        >
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="address">Address</label>
+        <textarea 
+          class="form-control" 
+          id="address"
+          name="address" 
+          rows="2"
+          placeholder="Enter your residential address"
+          required
+          autocomplete="street-address"
+        ></textarea>
+      </div>
+
+      <!-- Personal Details Section -->
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--spacing-lg);">
+        <div class="form-group" style="margin-bottom: 0;">
+          <label class="form-label" for="DOB">Date of Birth</label>
+          <input 
+            class="form-control" 
+            type="date" 
+            id="DOB"
+            name="DOB"
+            required
+          >
+        </div>
+
+        <div class="form-group" style="margin-bottom: 0;">
+          <label class="form-label" for="age">Age</label>
+          <input 
+            class="form-control" 
+            type="number" 
+            id="age"
+            name="age"
+            placeholder="18+"
+            min="18"
+            required
+          >
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="gender">Gender</label>
+        <select 
+          class="form-select" 
+          id="gender"
+          name="gender"
+          required
+        >
+          <option value="">Select your gender</option>
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+          <option value="Other">Other</option>
+        </select>
+      </div>
+
+      <button class="btn btn-primary" type="submit">Create Account</button>
+    </form>
+
+    <div class="auth-footer">
+      <p>Already have an account?</p>
+      <a href="{{ url_for('customer.login') }}">Login here</a>
+    </div>
+  </div>
+</div>
+{% endblock %}
