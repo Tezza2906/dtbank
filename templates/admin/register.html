@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block title %}Admin Registration - DT Bank{% endblock %}
+
+{% block content %}
+<div class="auth-container">
+  <div class="auth-card" style="max-width: 500px;">
+    <h2>Register Admin Account</h2>
+    
+    <form method="post" class="auth-form">
+      <div class="form-group">
+        <label class="form-label" for="username">Admin Username</label>
+        <input 
+          class="form-control" 
+          type="text" 
+          id="username"
+          name="username" 
+          placeholder="Choose a unique admin username"
+          required
+          autocomplete="username"
+        >
+        <small style="color: var(--color-text-light); margin-top: var(--spacing-sm); display: block;">
+          This will be your login credential
+        </small>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="password">Password</label>
+        <input 
+          class="form-control" 
+          type="password" 
+          id="password"
+          name="password" 
+          placeholder="Create a strong password"
+          required
+          autocomplete="new-password"
+        >
+        <small style="color: var(--color-text-light); margin-top: var(--spacing-sm); display: block;">
+          Use a combination of uppercase, lowercase, numbers, and symbols
+        </small>
+      </div>
+
+      <!-- Security Notice -->
+      <div style="background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.3); border-radius: var(--radius-lg); padding: var(--spacing-lg); margin-bottom: var(--spacing-xl);">
+        <p style="color: var(--color-danger); font-size: var(--font-size-sm); margin-bottom: 0;">
+          <strong>🔐 Important:</strong> Admin accounts have access to sensitive banking data. Protect your credentials carefully and never share them with anyone.
+        </p>
+      </div>
+
+      <button class="btn btn-primary" type="submit">Create Admin Account</button>
+    </form>
+
+    <div class="auth-footer">
+      <p>Already have an admin account?</p>
+      <a href="{{ url_for('admin.login') }}">Login here</a>
+    </div>
+  </div>
+</div>
+{% endblock %}

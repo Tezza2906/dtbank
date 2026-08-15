@@ -1,0 +1,160 @@
+{% extends "base.html" %}
+
+{% block title %}Admin Dashboard - DT Bank{% endblock %}
+
+{% block content %}
+<div class="admin-dashboard">
+  <!-- Dashboard Header -->
+  <div class="dashboard-header">
+    <h1>🏛️ Admin Dashboard</h1>
+    <p>Welcome, <strong>{{ session['admin_username'] }}</strong> | System Overview & Management</p>
+  </div>
+
+  <!-- Statistics Cards -->
+  <div class="admin-stats">
+    <div class="admin-stat-card">
+      <div class="admin-stat-label">👥 Total Customers</div>
+      <div class="admin-stat-value">{{ total_customers }}</div>
+      <p style="color: var(--color-text-light); font-size: var(--font-size-sm); margin-top: var(--spacing-md); margin-bottom: 0;">
+        Active customer accounts
+      </p>
+    </div>
+
+    <div class="admin-stat-card">
+      <div class="admin-stat-label">💰 Total Balance</div>
+      <div class="admin-stat-value">₹{{ "%.2f"|format(total_balance or 0) }}</div>
+      <p style="color: var(--color-text-light); font-size: var(--font-size-sm); margin-top: var(--spacing-md); margin-bottom: 0;">
+        System total liquidity
+      </p>
+    </div>
+
+    <div class="admin-stat-card">
+      <div class="admin-stat-label">📊 System Status</div>
+      <div class="admin-stat-value" style="color: var(--color-success); font-size: var(--font-size-xl);">✓ Operational</div>
+      <p style="color: var(--color-text-light); font-size: var(--font-size-sm); margin-top: var(--spacing-md); margin-bottom: 0;">
+        All systems running normally
+      </p>
+    </div>
+  </div>
+
+  <!-- Main Content Grid -->
+  <div style="display: grid; grid-template-columns: 1fr 350px; gap: var(--spacing-xl); margin-top: var(--spacing-2xl);">
+    <!-- Recent Transactions Section -->
+    <div class="admin-section">
+      <h3>📋 Recent Transactions</h3>
+      
+      <div class="transaction-table" style="margin-top: var(--spacing-xl);">
+        <div style="overflow-x: auto;">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Date & Time</th>
+                <th>Customer ID</th>
+                <th>Type</th>
+                <th style="text-align: right;">Amount (₹)</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% if recent_transactions %}
+                {% for tx in recent_transactions %}
+                <tr>
+                  <td>
+                    <span style="color: var(--color-silver);">
+                      {{ tx.transaction_date.strftime('%d %b %Y') if tx.transaction_date else 'N/A' }}
+                    </span>
+                    <br>
+                    <small style="color: var(--color-text-light);">
+                      {{ tx.transaction_date.strftime('%H:%M:%S') if tx.transaction_date else '' }}
+                    </small>
+                  </td>
+                  <td>
+                    <span style="color: var(--color-silver); font-family: 'Courier New', monospace; font-size: var(--font-size-sm);">
+                      {{ tx.customer_id }}
+                    </span>
+                  </td>
+                  <td>
+                    {% set t = tx.transaction_type|lower %}
+                    {% if t in ['deposit', 'credit'] %}
+                      <span class="badge badge-success">💰 {{ tx.transaction_type|upper }}</span>
+                    {% elif t in ['withdraw', 'withdrawal', 'debit'] %}
+                      <span class="badge badge-danger">💸 {{ tx.transaction_type|upper }}</span>
+                    {% elif t == 'transfer' %}
+                      <span class="badge badge-info">🔄 {{ tx.transaction_type|upper }}</span>
+                    {% else %}
+                      <span class="badge badge-primary">📊 {{ tx.transaction_type|upper }}</span>
+                    {% endif %}
+                  </td>
+                  <td style="text-align: right;">
+                    {% if t in ['withdraw', 'withdrawal', 'debit'] %}
+                      <span style="color: var(--color-danger); font-weight: 700;">
+                        -₹{{ "%.2f"|format(tx.amount) }}
+                      </span>
+                    {% else %}
+                      <span style="color: var(--color-success); font-weight: 700;">
+                        +₹{{ "%.2f"|format(tx.amount) }}
+                      </span>
+                    {% endif %}
+                  </td>
+                </tr>
+                {% endfor %}
+              {% else %}
+                <tr>
+                  <td colspan="4" style="text-align: center; padding: var(--spacing-2xl);">
+                    <p style="color: var(--color-text-light); margin-bottom: 0;">No recent transactions</p>
+                  </td>
+                </tr>
+              {% endif %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- View All Button -->
+      <div style="margin-top: var(--spacing-xl); text-align: center;">
+        <a href="{{ url_for('admin.transactions') }}" class="btn btn-outline-primary">
+          View All Transactions
+        </a>
+      </div>
+    </div>
+
+    <!-- Sidebar -->
+    <div>
+      <!-- Quick Actions Card -->
+      <div class="admin-section">
+        <h3 style="margin-bottom: var(--spacing-lg);">⚡ Quick Actions</h3>
+        <div style="display: flex; flex-direction: column; gap: var(--spacing-md);">
+          <a href="{{ url_for('admin.users') }}" class="action-btn" style="margin: 0; padding: var(--spacing-lg);">
+            <div class="action-icon">👥</div>
+            <div>Manage Customers</div>
+          </a>
+          <a href="{{ url_for('admin.transactions') }}" class="action-btn" style="margin: 0; padding: var(--spacing-lg);">
+            <div class="action-icon">📊</div>
+            <div>All Transactions</div>
+          </a>
+          <a href="{{ url_for('admin.logout') }}" class="action-btn" style="margin: 0; padding: var(--spacing-lg);">
+            <div class="action-icon">🚪</div>
+            <div>Logout</div>
+          </a>
+        </div>
+      </div>
+
+      <!-- System Info Card -->
+      <div class="admin-section" style="margin-top: var(--spacing-xl);">
+        <h3 style="margin-bottom: var(--spacing-lg);">ℹ️ System Info</h3>
+        <div style="display: flex; flex-direction: column; gap: var(--spacing-md);">
+          <div>
+            <p style="color: var(--color-text-light); font-size: var(--font-size-xs); text-transform: uppercase; letter-spacing: 1px; margin-bottom: var(--spacing-sm);">Admin User</p>
+            <p style="color: var(--color-white); margin-bottom: 0; word-break: break-all;">{{ session['admin_username'] }}</p>
+          </div>
+          <div style="border-top: 1px solid rgba(212, 175, 55, 0.2); padding-top: var(--spacing-md);">
+            <p style="color: var(--color-text-light); font-size: var(--font-size-xs); text-transform: uppercase; letter-spacing: 1px; margin-bottom: var(--spacing-sm);">Status</p>
+            <div style="display: inline-block; background: rgba(16, 185, 129, 0.2); color: var(--color-success); padding: var(--spacing-sm) var(--spacing-lg); border-radius: var(--radius-full); font-weight: 600; border: 1px solid var(--color-success); font-size: var(--font-size-xs);">
+              ✓ Online
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

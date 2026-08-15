@@ -1,0 +1,116 @@
+{% extends "base.html" %}
+
+{% block title %}All Transactions - DT Bank Admin{% endblock %}
+
+{% block content %}
+<div class="admin-dashboard">
+  <!-- Page Header -->
+  <div class="dashboard-header">
+    <h1>📊 Transaction History</h1>
+    <p>View all banking activity across the system</p>
+  </div>
+
+  <!-- Transactions Table -->
+  <div class="admin-section">
+    <h3>All Transactions</h3>
+    
+    {% if transactions %}
+      <div class="admin-users-table" style="margin-top: var(--spacing-xl);">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Transaction ID</th>
+              <th>Date & Time</th>
+              <th>Customer</th>
+              <th>Type</th>
+              <th style="text-align: right;">Amount (₹)</th>
+              <th>Recipient Account</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for tx in transactions %}
+            {% set t = tx.transaction_type|lower %}
+            <tr>
+              <td>
+                <span style="color: var(--color-silver); font-family: 'Courier New', monospace; font-size: var(--font-size-sm);">
+                  #{{ tx.transaction_id }}
+                </span>
+              </td>
+              <td>
+                <span style="color: var(--color-silver);">
+                  {{ tx.transaction_date.strftime('%d %b %Y') if tx.transaction_date else 'N/A' }}
+                </span>
+                <br>
+                <small style="color: var(--color-text-light);">
+                  {{ tx.transaction_date.strftime('%H:%M:%S') if tx.transaction_date else '' }}
+                </small>
+              </td>
+              <td>
+                <span style="color: var(--color-white); font-weight: 600;">
+                  {{ tx.username or 'N/A' }}
+                </span>
+              </td>
+              <td>
+                {% if t in ['deposit', 'credit'] %}
+                  <span class="badge badge-success">💰 {{ tx.transaction_type|upper }}</span>
+                {% elif t in ['withdraw', 'withdrawal', 'debit'] %}
+                  <span class="badge badge-danger">💸 {{ tx.transaction_type|upper }}</span>
+                {% elif t == 'transfer' %}
+                  <span class="badge badge-info">🔄 {{ tx.transaction_type|upper }}</span>
+                {% else %}
+                  <span class="badge badge-primary">📊 {{ tx.transaction_type|upper }}</span>
+                {% endif %}
+              </td>
+              <td style="text-align: right;">
+                {% if t in ['withdraw', 'withdrawal', 'debit'] %}
+                  <span style="color: var(--color-danger); font-weight: 700;">
+                    -₹{{ "%.2f"|format(tx.amount) }}
+                  </span>
+                {% else %}
+                  <span style="color: var(--color-success); font-weight: 700;">
+                    +₹{{ "%.2f"|format(tx.amount) }}
+                  </span>
+                {% endif %}
+              </td>
+              <td>
+                <span style="color: var(--color-silver); font-family: 'Courier New', monospace; font-size: var(--font-size-sm);">
+                  {{ tx.recipient_account or '—' }}
+                </span>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Summary Stats -->
+      <div style="margin-top: var(--spacing-xl); padding-top: var(--spacing-xl); border-top: 1px solid rgba(212, 175, 55, 0.2); display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--spacing-lg);">
+        <div>
+          <p style="color: var(--color-text-light); font-size: var(--font-size-sm); text-transform: uppercase; letter-spacing: 1px; margin-bottom: var(--spacing-md);">Total Transactions</p>
+          <p style="color: var(--color-gold); font-size: var(--font-size-2xl); font-weight: 700; margin-bottom: 0;">{{ transactions|length }}</p>
+        </div>
+        <div>
+          <p style="color: var(--color-text-light); font-size: var(--font-size-sm); text-transform: uppercase; letter-spacing: 1px; margin-bottom: var(--spacing-md);">Total Volume</p>
+          <p style="color: var(--color-success); font-size: var(--font-size-2xl); font-weight: 700; margin-bottom: 0;">₹{{ "%.2f"|format(transactions|map(attribute='amount')|sum) }}</p>
+        </div>
+      </div>
+    {% else %}
+      <div style="text-align: center; padding: var(--spacing-3xl);">
+        <p style="color: var(--color-text-light); font-size: var(--font-size-lg); margin-bottom: 0;">
+          📭 No transactions found
+        </p>
+      </div>
+    {% endif %}
+  </div>
+
+  <!-- Action Buttons -->
+  <div style="display: flex; gap: var(--spacing-lg); margin-top: var(--spacing-xl); justify-content: center;">
+    <a href="{{ url_for('admin.dashboard') }}" class="btn btn-outline-secondary">
+      Back to Dashboard
+    </a>
+    <a href="{{ url_for('admin.users') }}" class="btn btn-primary">
+      View Customers
+    </a>
+  </div>
+</div>
+{% endblock %}
