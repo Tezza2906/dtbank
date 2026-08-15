@@ -1,0 +1,144 @@
+{% extends "base.html" %}
+
+{% block title %}My Profile - DT Bank{% endblock %}
+
+{% block content %}
+<div class="profile-container">
+  <!-- Profile Header -->
+  <div class="profile-header">
+    <div class="profile-avatar">
+      {{ (user.acc_holder or user.username)[0]|upper }}
+    </div>
+    <div>
+      <h2>{{ user.acc_holder or user.username }}</h2>
+      <p>@{{ user.username }}</p>
+      <span class="profile-badge">{{ user.account_number }}</span>
+    </div>
+  </div>
+
+  <!-- Profile Form -->
+  <div class="profile-form">
+    <h3 style="margin-bottom: var(--spacing-xl); color: var(--color-white);">Profile Information</h3>
+    
+    <form method="post" novalidate>
+      <!-- Full Name -->
+      <div class="profile-form-group">
+        <label for="full_name">Full Name</label>
+        <input
+          type="text"
+          class="form-control"
+          id="full_name"
+          name="full_name"
+          value="{{ user.acc_holder or '' }}"
+          required
+        >
+      </div>
+
+      <!-- Email -->
+      <div class="profile-form-group">
+        <label for="email">Email Address</label>
+        <input
+          type="email"
+          class="form-control"
+          id="email"
+          name="email"
+          value="{{ user.email or '' }}"
+        >
+      </div>
+
+      <!-- Phone -->
+      <div class="profile-form-group">
+        <label for="phone">Phone Number</label>
+        <input
+          type="text"
+          class="form-control"
+          id="phone"
+          name="phone"
+          value="{{ user.phone or '' }}"
+        >
+      </div>
+
+      <!-- Address -->
+      <div class="profile-form-group">
+        <label for="address">Residential Address</label>
+        <textarea
+          class="form-control"
+          id="address"
+          name="address"
+          rows="3"
+        >{{ user.address or '' }}</textarea>
+      </div>
+
+      <!-- Readonly Fields -->
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--spacing-lg); margin-bottom: var(--spacing-xl);">
+        <div class="profile-form-group" style="margin-bottom: 0;">
+          <label for="username">Username</label>
+          <input
+            type="text"
+            class="form-control"
+            id="username"
+            value="{{ user.username }}"
+            disabled
+          >
+        </div>
+        <div class="profile-form-group" style="margin-bottom: 0;">
+          <label for="account_number">Account Number</label>
+          <input
+            type="text"
+            class="form-control"
+            id="account_number"
+            value="{{ user.account_number }}"
+            disabled
+          >
+        </div>
+      </div>
+
+      <!-- Additional Info (Readonly) -->
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--spacing-lg); margin-bottom: var(--spacing-xl);">
+        <div class="profile-form-group" style="margin-bottom: 0;">
+          <label for="dob">Date of Birth</label>
+          <input
+            type="date"
+            class="form-control"
+            id="dob"
+            value="{{ user.DOB or '' }}"
+            disabled
+          >
+        </div>
+        <div class="profile-form-group" style="margin-bottom: 0;">
+          <label for="age">Age</label>
+          <input
+            type="number"
+            class="form-control"
+            id="age"
+            value="{{ user.age or '' }}"
+            disabled
+          >
+        </div>
+      </div>
+
+      <!-- Account Balance -->
+      <div class="profile-form-group">
+        <label for="balance">Account Balance</label>
+        <input
+          type="text"
+          class="form-control"
+          id="balance"
+          value="₹{{ "%.2f"|format(user.balance) }}"
+          disabled
+        >
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="profile-actions">
+        <a href="{{ url_for('customer.dashboard') }}" class="btn btn-outline-secondary">
+          Back to Dashboard
+        </a>
+        <button type="submit" class="btn btn-primary">
+          Save Changes
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

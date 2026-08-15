@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block title %}Account Details - DT Bank{% endblock %}
+
+{% block content %}
+<div class="profile-container">
+  <div style="max-width: 600px; margin: 0 auto;">
+    <!-- Account Header -->
+    <div class="profile-header">
+      <div class="profile-avatar">
+        💳
+      </div>
+      <div>
+        <h2>Account Details</h2>
+        <p>{{ account_number }}</p>
+        <span class="profile-badge">Primary Account</span>
+      </div>
+    </div>
+
+    <!-- Account Information Card -->
+    <div class="profile-form" style="padding: var(--spacing-2xl);">
+      <!-- Account Holder -->
+      <div style="margin-bottom: var(--spacing-xl); padding-bottom: var(--spacing-xl); border-bottom: 1px solid rgba(212, 175, 55, 0.2);">
+        <p style="color: var(--color-text-light); font-size: var(--font-size-sm); text-transform: uppercase; letter-spacing: 1px; margin-bottom: var(--spacing-md);">Account Holder</p>
+        <h3 style="color: var(--color-white); margin-bottom: 0;">{{ acc_holder }}</h3>
+      </div>
+
+      <!-- Current Balance -->
+      <div style="margin-bottom: var(--spacing-xl); padding-bottom: var(--spacing-xl); border-bottom: 1px solid rgba(212, 175, 55, 0.2);">
+        <p style="color: var(--color-text-light); font-size: var(--font-size-sm); text-transform: uppercase; letter-spacing: 1px; margin-bottom: var(--spacing-md);">💰 Current Balance</p>
+        <div style="font-size: var(--font-size-3xl); font-weight: 700; background: linear-gradient(135deg, var(--color-gold) 0%, var(--color-royal-blue-light) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
+          ₹{{ "%.2f"|format(balance or 0) }}
+        </div>
+      </div>
+
+      <!-- Interest -->
+      <div style="margin-bottom: var(--spacing-xl); padding-bottom: var(--spacing-xl); border-bottom: 1px solid rgba(212, 175, 55, 0.2);">
+        <p style="color: var(--color-text-light); font-size: var(--font-size-sm); text-transform: uppercase; letter-spacing: 1px; margin-bottom: var(--spacing-md);">📈 Interest Earned</p>
+        <p style="color: var(--color-success); font-size: var(--font-size-xl); font-weight: 700; margin-bottom: 0;">
+          ₹{{ "%.2f"|format(interest or 0) }}
+        </p>
+      </div>
+
+      <!-- Account Number (Readonly) -->
+      <div style="margin-bottom: var(--spacing-xl); padding-bottom: var(--spacing-xl); border-bottom: 1px solid rgba(212, 175, 55, 0.2);">
+        <p style="color: var(--color-text-light); font-size: var(--font-size-sm); text-transform: uppercase; letter-spacing: 1px; margin-bottom: var(--spacing-md);">Account Number</p>
+        <p style="color: var(--color-silver); font-size: var(--font-size-lg); margin-bottom: 0; font-family: 'Courier New', monospace;">{{ account_number }}</p>
+      </div>
+
+      <!-- Account Status -->
+      <div style="margin-bottom: var(--spacing-xl);">
+        <p style="color: var(--color-text-light); font-size: var(--font-size-sm); text-transform: uppercase; letter-spacing: 1px; margin-bottom: var(--spacing-md);">Status</p>
+        <div style="display: inline-block; background: rgba(16, 185, 129, 0.2); color: var(--color-success); padding: var(--spacing-sm) var(--spacing-lg); border-radius: var(--radius-full); font-weight: 600; border: 1px solid var(--color-success);">
+          ✓ Active
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="profile-actions">
+        <a href="{{ url_for('customer.dashboard') }}" class="btn btn-outline-secondary">
+          Back to Dashboard
+        </a>
+        <a href="{{ url_for('customer.transfer') }}" class="btn btn-primary">
+          Transfer Funds
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
